@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omnizentrix — Engineering Digital Intelligence</title>
+    <meta name="description" content="Omnizentrix builds, manages, and scales your digital ecosystem. Web, Database & System Solutions — Built for Scale.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ========== CURSOR ========== -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <!-- ========== LOADER ========== -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <img src="images/OZ-LOGO-white.png" alt="Omnizentrix" class="loader-logo-img">
+            </div>
+            <div class="loader-bar">
+                <div class="loader-progress" id="loaderProgress"></div>
+            </div>
+            <span class="loader-text">Initializing Systems...</span>
+        </div>
+    </div>
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <img src="images/OZ-LOGO-white.png" alt="Omnizentrix" class="nav-logo-img">
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <a href="#contact" class="nav-cta btn-primary">Get Started</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="hero" id="home">
+ 
+    <!-- Spline 3D Canvas — sits behind everything -->
+    <div id="splineContainer" class="spline-container"></div>
+ 
+    <!-- Existing overlays kept -->
+    <div class="grid-overlay"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+ 
+    <!-- Hero content — unchanged -->
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="badge-dot"></span>
+            <span>Next-Gen Digital Infrastructure</span>
+        </div>
+        <h1 class="hero-title">
+            <span class="title-line" data-delay="0">Powerful</span>
+            <span class="title-line gradient-text" data-delay="100">Performance</span>
+            <span class="title-line" data-delay="200">Perfection</span>
+        </h1>
+        <p class="hero-subtitle">Web, Database &amp; System Solutions — Built for Scale</p>
+        <p class="hero-subtext">We build, manage, and scale your digital ecosystem with precision, speed, and intelligent automation.</p>
+        <div class="hero-cta">
+            <a href="#contact" class="btn btn-primary btn-glow">
+                <span>Get Started</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+            <a href="#services" class="btn btn-secondary btn-outline">
+                <span>View Services</span>
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-number" data-target="150">0</span><span class="stat-suffix">+</span>
+                <span class="stat-label">Projects Delivered</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="98">0</span><span class="stat-suffix">%</span>
+                <span class="stat-label">Client Satisfaction</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="40">0</span><span class="stat-suffix">+</span>
+                <span class="stat-label">Enterprise Clients</span>
+            </div>
+        </div>
+    </div>
+ 
+    <div class="hero-scroll-indicator">
+        <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+        <span>Scroll to explore</span>
+    </div>
+ 
+</section>
+ 
+<!-- ========== SPLINE SCRIPT ========== -->
+<!-- Load Three.js and Spline loader via importmap -->
+<script type="importmap">
+{
+    "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/examples/jsm/controls/OrbitControls.js": "https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js",
+        "@splinetool/loader": "https://unpkg.com/@splinetool/loader@1.9.28/build/SplineLoader.js"
+    }
+}
+</script>
+ 
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import SplineLoader from '@splinetool/loader';
+ 
+const container = document.getElementById('splineContainer');
+ 
+// Camera
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 70, 100000);
+camera.position.set(189.48, 6.01, 72.34);
+camera.quaternion.setFromEuler(new THREE.Euler(-0.17, 1.12, 0.15));
+ 
+// Scene
+const scene = new THREE.Scene();
+ 
+// Load Spline scene
+const loader = new SplineLoader();
+loader.load(
+    'https://prod.spline.design/F-tE6pxaf70GSbUy/scene.splinecode',
+    (splineScene) => {
+        scene.add(splineScene);
+    }
+);
+ 
+// Renderer — transparent background so our black hero shows through
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFShadowMap;
+renderer.setClearAlpha(0); // transparent — lets CSS background show
+ 
+container.appendChild(renderer.domElement);
+ 
+// Orbit controls — limited so user can't break the view
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.125;
+controls.enableZoom = false;       // disable zoom to keep layout
+controls.enablePan = false;        // disable pan
+controls.autoRotate = false;
+ 
+// Resize handler
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+ 
+// Animate
+function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+}
+animate();
+</script>
+
+    <!-- ========== SERVICES SECTION ========== -->
+    <section class="services section" id="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">What We Do</span>
+                <h2 class="section-title">Our <span class="gradient-text">Services</span></h2>
+                <p class="section-subtitle">End-to-end digital solutions engineered for the modern enterprise</p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="service-card" data-index="0">
+                    <div class="service-card-inner">
+                        <div class="service-icon-wrapper">
+                            <div class="service-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="service-icon-glow"></div>
+                        </div>
+                        <div class="service-number">01</div>
+                        <h3 class="service-title">Website Development</h3>
+                        <p class="service-desc">Crafting high-performance, pixel-perfect web experiences that captivate users and drive conversions. From sleek landing pages to complex web applications.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Full-Stack Development</li>
+                            <li><i class="fas fa-check"></i> SaaS Platforms</li>
+                            <li><i class="fas fa-check"></i> Progressive Web Apps</li>
+                        </ul>
+                        <a href="#contact" class="service-link">
+                            <span>Explore</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card" data-index="1">
+                    <div class="service-card-inner">
+                        <div class="service-icon-wrapper">
+                            <div class="service-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="service-icon-glow"></div>
+                        </div>
+                        <div class="service-number">02</div>
+                        <h3 class="service-title">Database Architecture &amp; Optimization</h3>
+                        <p class="service-desc">Designing robust, scalable database systems that handle massive data loads with lightning-fast query performance and enterprise-grade security.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Schema Design & Modeling</li>
+                            <li><i class="fas fa-check"></i> Query Optimization</li>
+                            <li><i class="fas fa-check"></i> Data Migration</li>
+                        </ul>
+                        <a href="#contact" class="service-link">
+                            <span>Explore</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card" data-index="2">
+                    <div class="service-card-inner">
+                        <div class="service-icon-wrapper">
+                            <div class="service-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="service-icon-glow"></div>
+                        </div>
+                        <div class="service-number">03</div>
+                        <h3 class="service-title">System Management &amp; Automation</h3>
+                        <p class="service-desc">Streamlining operations with intelligent automation pipelines that eliminate bottlenecks, reduce human error, and accelerate your team's velocity.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Workflow Automation</li>
+                            <li><i class="fas fa-check"></i> CI/CD Pipelines</li>
+                            <li><i class="fas fa-check"></i> Monitoring & Alerting</li>
+                        </ul>
+                        <a href="#contact" class="service-link">
+                            <span>Explore</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card" data-index="3">
+                    <div class="service-card-inner">
+                        <div class="service-icon-wrapper">
+                            <div class="service-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <div class="service-icon-glow"></div>
+                        </div>
+                        <div class="service-number">04</div>
+                        <h3 class="service-title">Cloud &amp; DevOps Solutions</h3>
+                        <p class="service-desc">Architecting resilient cloud infrastructures and DevOps ecosystems that scale effortlessly with your growth while maintaining 99.99% uptime.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Cloud Architecture</li>
+                            <li><i class="fas fa-check"></i> Kubernetes & Docker</li>
+                            <li><i class="fas fa-check"></i> Infrastructure as Code</li>
+                        </ul>
+                        <a href="#contact" class="service-link">
+                            <span>Explore</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ABOUT SECTION ========== -->
+    <!-- ========== ABOUT SECTION — SCROLL-JACKED VIDEO ANIMATION ========== -->
+<!--
+    HOW TO USE:
+    1. Replace your entire <section class="about section" id="about">...</section> with this
+    2. Add about_scroll_final.css to the bottom of your style.css
+    3. Make sure your frames are in: images/video_frames/frame_00000.png → frame_00191.png
+-->
+
+<section class="about" id="about">
+
+    <!-- SCROLL LOCK WRAPPER: This is tall — it's the "scroll budget" for the animation -->
+    <div class="about-scroll-track" id="aboutScrollTrack">
+
+        <!-- STICKY PANEL: locks in viewport while user scrolls through the track -->
+        <div class="about-sticky-panel" id="aboutStickyPanel">
+
+            <!-- LEFT: Canvas playing frames -->
+            <div class="about-canvas-side">
+                <canvas id="ozCanvas" class="oz-canvas"></canvas>
+                <!-- Gradient fade on right edge to blend into content -->
+                <div class="oz-canvas-fade"></div>
+            </div>
+
+            <!-- RIGHT: Content -->
+            <div class="about-text-side">
+                <div class="about-content">
+                    <span class="section-tag">Who We Are</span>
+                    <h2 class="section-title">The Future of <span class="gradient-text">Tech</span> is Here</h2>
+                    <p class="about-text lead">Omnizentrix is a futuristic tech collective built by engineers, architects, and digital strategists who believe technology should be a force multiplier — not a bottleneck.</p>
+                    <p class="about-text">Founded at the intersection of human ingenuity and machine intelligence, we operate as a high-performance digital unit that transforms complex technical challenges into elegant, scalable solutions.</p>
+                    <p class="about-text">From startups to global enterprises, we architect digital ecosystems that don't just keep up with the future — they define it. Our systems are built with precision, security, and intelligence at their core.</p>
+                    <div class="about-pillars">
+                        <div class="pillar">
+                            <div class="pillar-icon"><i class="fas fa-bolt"></i></div>
+                            <div class="pillar-text">
+                                <strong>Zero Compromise</strong>
+                                <span>Performance at every layer</span>
+                            </div>
+                        </div>
+                        <div class="pillar">
+                            <div class="pillar-icon"><i class="fas fa-lock"></i></div>
+                            <div class="pillar-text">
+                                <strong>Security First</strong>
+                                <span>Enterprise-grade protection</span>
+                            </div>
+                        </div>
+                        <div class="pillar">
+                            <div class="pillar-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                            <div class="pillar-text">
+                                <strong>Built to Scale</strong>
+                                <span>Grows with your ambition</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scroll progress indicator -->
+                <div class="oz-progress-bar">
+                    <div class="oz-progress-fill" id="ozProgressFill"></div>
+                </div>
+                <p class="oz-scroll-hint" id="ozScrollHint">
+                    <span class="oz-scroll-arrow">↓</span> Scroll to explore
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<script>
+(function() {
+    'use strict';
+
+    /* ---- CONFIG ---- */
+    const TOTAL_FRAMES = 192;
+    const FRAME_PATH   = 'images/video_frames/frame_{N}.png';
+    // How many extra px of scroll after animation ends before page moves on
+    // (effectively = scroll distance for the whole animation)
+    const SCROLL_MULTIPLIER = 5; // × viewport height
+
+    /* ---- ELEMENTS ---- */
+    const track   = document.getElementById('aboutScrollTrack');
+    const panel   = document.getElementById('aboutStickyPanel');
+    const canvas  = document.getElementById('ozCanvas');
+    const ctx     = canvas.getContext('2d');
+    const fill    = document.getElementById('ozProgressFill');
+    const hint    = document.getElementById('ozScrollHint');
+
+    /* ---- FRAME CACHE ---- */
+    const cache = new Array(TOTAL_FRAMES).fill(null);
+    let   loadedCount = 0;
+    let   currentFrame = 0;
+
+    function frameSrc(n) {
+        // zero-padded 5 digits: frame_00000.png
+        return FRAME_PATH.replace('{N}', String(n).padStart(5, '0'));
+    }
+
+    function loadFrame(n) {
+        return new Promise(resolve => {
+            if (cache[n]) { resolve(cache[n]); return; }
+            const img = new Image();
+            img.onload = () => { cache[n] = img; loadedCount++; resolve(img); };
+            img.onerror = () => resolve(null);
+            img.src = frameSrc(n);
+        });
+    }
+
+    /* ---- CANVAS DRAW ---- */
+    function resizeCanvas() {
+        const side = canvas.parentElement;
+        canvas.width  = side.offsetWidth;
+        canvas.height = side.offsetHeight;
+        renderFrame(currentFrame);
+    }
+
+    function renderFrame(n) {
+        const img = cache[n];
+        if (!img) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Contain-fit: entire image fits, nothing clipped
+        const s  = Math.min(canvas.width / img.width, canvas.height / img.height);
+        const w  = img.width  * s;
+        const h  = img.height * s;
+        const ox = (canvas.width  - w) / 2;
+        const oy = (canvas.height - h) / 2;
+        ctx.drawImage(img, ox, oy, w, h);
+    }
+
+    /* ---- SCROLL LOCK LOGIC ---- */
+    // The track height determines scroll distance.
+    // We set it dynamically = SCROLL_MULTIPLIER × vh.
+    function setTrackHeight() {
+        track.style.height = (window.innerHeight * SCROLL_MULTIPLIER) + 'px';
+    }
+
+    let ticking = false;
+
+    function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            updateAnimation();
+            ticking = false;
+        });
+    }
+
+    function updateAnimation() {
+        const rect       = track.getBoundingClientRect();
+        const trackH     = track.offsetHeight;
+        const viewH      = window.innerHeight;
+        // scrolled = how far we've scrolled INTO the track
+        const scrolled   = -rect.top;
+        const scrollable = trackH - viewH;
+
+        if (scrolled < 0 || scrolled > scrollable) {
+            // Outside the sticky zone — nothing to do
+            return;
+        }
+
+        // Progress 0→1
+        const progress = Math.max(0, Math.min(1, scrolled / scrollable));
+
+        // Frame index
+        const frameIdx = Math.min(
+            TOTAL_FRAMES - 1,
+            Math.floor(progress * TOTAL_FRAMES)
+        );
+
+        // Update progress bar
+        if (fill) fill.style.width = (progress * 100) + '%';
+
+        // Fade out hint after first scroll
+        if (hint && progress > 0.02) {
+            hint.style.opacity = Math.max(0, 1 - progress * 8);
+        }
+
+        if (frameIdx !== currentFrame) {
+            currentFrame = frameIdx;
+            if (cache[frameIdx]) {
+                renderFrame(frameIdx);
+            } else {
+                loadFrame(frameIdx).then(() => renderFrame(frameIdx));
+            }
+        }
+    }
+
+    /* ---- PRELOAD STRATEGY ---- */
+    // 1. Load first frame immediately so canvas isn't blank
+    // 2. Then load frames in order
+    async function init() {
+        setTrackHeight();
+        resizeCanvas();
+
+        // Load frame 0 first
+        await loadFrame(0);
+        renderFrame(0);
+
+        // Then load rest in background, prioritising first half
+        for (let i = 1; i < TOTAL_FRAMES; i++) {
+            loadFrame(i);
+            // Small yield every 10 frames so browser stays responsive
+            if (i % 10 === 0) await new Promise(r => setTimeout(r, 0));
+        }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => {
+        setTrackHeight();
+        resizeCanvas();
+        updateAnimation();
+    });
+
+    // Run
+    init();
+
+})();
+</script>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section class="features section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Why Choose Us</span>
+                <h2 class="section-title">Built on <span class="gradient-text">Excellence</span></h2>
+                <p class="section-subtitle">Every system we build is engineered to the highest standards</p>
+            </div>
+
+            <div class="features-showcase">
+                <div class="features-tabs">
+                    <button class="feature-tab active" data-tab="fast">
+                        <i class="fas fa-bolt"></i>
+                        <span>Fast</span>
+                    </button>
+                    <button class="feature-tab" data-tab="secure">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Secure</span>
+                    </button>
+                    <button class="feature-tab" data-tab="scalable">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                        <span>Scalable</span>
+                    </button>
+                    <button class="feature-tab" data-tab="intelligent">
+                        <i class="fas fa-brain"></i>
+                        <span>Intelligent</span>
+                    </button>
+                </div>
+
+                <div class="features-content">
+                    <div class="feature-panel active" id="tab-fast">
+                        <div class="feature-panel-inner">
+                            <div class="feature-panel-text">
+                                <h3>Blazing Fast Performance</h3>
+                                <p>We obsess over every millisecond. Our architectures are designed for sub-100ms response times at scale, using edge computing, intelligent caching layers, and optimized data pipelines.</p>
+                                <ul class="feature-list">
+                                    <li><i class="fas fa-check-circle"></i> Sub-100ms API Response Times</li>
+                                    <li><i class="fas fa-check-circle"></i> CDN-Powered Global Delivery</li>
+                                    <li><i class="fas fa-check-circle"></i> Optimized Database Indexing</li>
+                                    <li><i class="fas fa-check-circle"></i> Edge Caching & Compression</li>
+                                </ul>
+                                <div class="feature-metric">
+                                    <div class="metric-bar-wrapper">
+                                        <div class="metric-label">Load Time</div>
+                                        <div class="metric-bar"><div class="metric-fill" style="--width: 95%"></div></div>
+                                        <div class="metric-value">0.3s avg</div>
+                                    </div>
+                                    <div class="metric-bar-wrapper">
+                                        <div class="metric-label">Uptime SLA</div>
+                                        <div class="metric-bar"><div class="metric-fill" style="--width: 99%"></div></div>
+                                        <div class="metric-value">99.99%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="feature-panel-visual">
+                                <div class="feature-visual-card">
+                                    <div class="vis-header">
+                                        <div class="vis-dots"><span></span><span></span><span></span></div>
+                                        <span class="vis-title">Performance Dashboard</span>
+                                    </div>
+                                    <div class="vis-bars">
+                                        <div class="vis-bar" style="--h:40%;--delay:0s"><span>Q1</span></div>
+                                        <div class="vis-bar" style="--h:65%;--delay:0.1s"><span>Q2</span></div>
+                                        <div class="vis-bar" style="--h:55%;--delay:0.2s"><span>Q3</span></div>
+                                        <div class="vis-bar" style="--h:80%;--delay:0.3s"><span>Q4</span></div>
+                                        <div class="vis-bar highlight" style="--h:95%;--delay:0.4s"><span>Now</span></div>
+                                    </div>
+                                    <div class="vis-metric">
+                                        <span class="vis-metric-value">99.9%</span>
+                                        <span class="vis-metric-label">Uptime Achieved</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-panel" id="tab-secure">
+                        <div class="feature-panel-inner">
+                            <div class="feature-panel-text">
+                                <h3>Military-Grade Security</h3>
+                                <p>Security isn't an afterthought — it's woven into every layer of our architecture. From zero-trust networking to end-to-end encryption, your data is fortress-protected.</p>
+                                <ul class="feature-list">
+                                    <li><i class="fas fa-check-circle"></i> Zero-Trust Architecture</li>
+                                    <li><i class="fas fa-check-circle"></i> End-to-End Encryption (AES-256)</li>
+                                    <li><i class="fas fa-check-circle"></i> SOC 2 & ISO 27001 Compliance</li>
+                                    <li><i class="fas fa-check-circle"></i> Real-Time Threat Detection</li>
+                                </ul>
+                            </div>
+                            <div class="feature-panel-visual">
+                                <div class="feature-visual-card">
+                                    <div class="vis-header">
+                                        <div class="vis-dots"><span></span><span></span><span></span></div>
+                                        <span class="vis-title">Security Monitor</span>
+                                    </div>
+                                    <div class="security-grid">
+                                        <div class="sec-item active"><i class="fas fa-shield-alt"></i><span>Firewall</span></div>
+                                        <div class="sec-item active"><i class="fas fa-lock"></i><span>Encryption</span></div>
+                                        <div class="sec-item active"><i class="fas fa-user-shield"></i><span>Auth</span></div>
+                                        <div class="sec-item active"><i class="fas fa-eye"></i><span>Monitor</span></div>
+                                        <div class="sec-item"><i class="fas fa-ban"></i><span>DDoS</span></div>
+                                        <div class="sec-item"><i class="fas fa-virus-slash"></i><span>Antivirus</span></div>
+                                    </div>
+                                    <div class="vis-metric">
+                                        <span class="vis-metric-value green">SECURE</span>
+                                        <span class="vis-metric-label">System Status</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-panel" id="tab-scalable">
+                        <div class="feature-panel-inner">
+                            <div class="feature-panel-text">
+                                <h3>Infinitely Scalable</h3>
+                                <p>Our microservices-based architectures are designed to scale horizontally and vertically on demand. Handle millions of users without breaking a sweat.</p>
+                                <ul class="feature-list">
+                                    <li><i class="fas fa-check-circle"></i> Auto-Scaling Infrastructure</li>
+                                    <li><i class="fas fa-check-circle"></i> Microservices Architecture</li>
+                                    <li><i class="fas fa-check-circle"></i> Global Multi-Region Deploy</li>
+                                    <li><i class="fas fa-check-circle"></i> Load Balancing & Failover</li>
+                                </ul>
+                            </div>
+                            <div class="feature-panel-visual">
+                                <div class="feature-visual-card">
+                                    <div class="vis-header">
+                                        <div class="vis-dots"><span></span><span></span><span></span></div>
+                                        <span class="vis-title">Scale Topology</span>
+                                    </div>
+                                    <div class="topology-grid">
+                                        <div class="topo-node root"><i class="fas fa-server"></i></div>
+                                        <div class="topo-branch">
+                                            <div class="topo-node"><i class="fas fa-cloud"></i></div>
+                                            <div class="topo-node"><i class="fas fa-cloud"></i></div>
+                                            <div class="topo-node"><i class="fas fa-cloud"></i></div>
+                                        </div>
+                                    </div>
+                                    <div class="vis-metric">
+                                        <span class="vis-metric-value">∞</span>
+                                        <span class="vis-metric-label">Scale Capacity</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-panel" id="tab-intelligent">
+                        <div class="feature-panel-inner">
+                            <div class="feature-panel-text">
+                                <h3>AI-Powered Intelligence</h3>
+                                <p>We embed machine learning and intelligent automation throughout the stack — predictive analytics, anomaly detection, and self-healing systems that think ahead.</p>
+                                <ul class="feature-list">
+                                    <li><i class="fas fa-check-circle"></i> Predictive Analytics</li>
+                                    <li><i class="fas fa-check-circle"></i> ML-Based Anomaly Detection</li>
+                                    <li><i class="fas fa-check-circle"></i> Self-Healing Systems</li>
+                                    <li><i class="fas fa-check-circle"></i> AI-Driven Optimization</li>
+                                </ul>
+                            </div>
+                            <div class="feature-panel-visual">
+                                <div class="feature-visual-card">
+                                    <div class="vis-header">
+                                        <div class="vis-dots"><span></span><span></span><span></span></div>
+                                        <span class="vis-title">AI Engine</span>
+                                    </div>
+                                    <div class="ai-visual">
+                                        <div class="ai-brain">
+                                            <i class="fas fa-brain"></i>
+                                        </div>
+                                        <div class="ai-pulse ring-pulse"></div>
+                                        <div class="ai-pulse ring-pulse delay-1"></div>
+                                        <div class="ai-pulse ring-pulse delay-2"></div>
+                                    </div>
+                                    <div class="vis-metric">
+                                        <span class="vis-metric-value">AI</span>
+                                        <span class="vis-metric-label">Autonomous Operations</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PORTFOLIO SECTION ========== -->
+    <section class="portfolio section" id="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Our Work</span>
+                <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+                <p class="section-subtitle">A curated showcase of our most impactful digital solutions</p>
+            </div>
+
+            <div class="portfolio-filter">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="web">Web Dev</button>
+                <button class="filter-btn" data-filter="cloud">Cloud</button>
+                <button class="filter-btn" data-filter="database">Database</button>
+                <button class="filter-btn" data-filter="automation">Automation</button>
+            </div>
+
+            <div class="portfolio-grid">
+                <!-- Project 1 -->
+                <div class="portfolio-card" data-category="web">
+                    <div class="portfolio-card-inner">
+                        <div class="portfolio-visual">
+                            <div class="portfolio-icon-bg">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="portfolio-tags-top">
+                                <span class="tag">React</span>
+                                <span class="tag">Node.js</span>
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <span class="portfolio-category">Web Development</span>
+                            <h3 class="portfolio-title">NexaCommerce Platform</h3>
+                            <p class="portfolio-desc">A high-performance e-commerce platform handling 500K+ daily transactions with real-time inventory management.</p>
+                            <div class="portfolio-meta">
+                                <span><i class="fas fa-users"></i> 500K+ Users</span>
+                                <span><i class="fas fa-star"></i> 4.9 Rating</span>
+                            </div>
+                        </div>
+                        <div class="portfolio-hover-overlay">
+                            <div class="portfolio-hover-content">
+                                <h4>NexaCommerce Platform</h4>
+                                <p>Engineered for scale and performance</p>
+                                <div class="portfolio-tech-stack">
+                                    <span>React</span><span>Node.js</span><span>PostgreSQL</span><span>Redis</span>
+                                </div>
+                                <a href="#contact" class="btn btn-primary btn-sm">View Case Study</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="portfolio-card featured" data-category="cloud">
+                    <div class="portfolio-card-inner">
+                        <div class="portfolio-visual">
+                            <div class="portfolio-icon-bg">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div class="portfolio-tags-top">
+                                <span class="tag">AWS</span>
+                                <span class="tag">Kubernetes</span>
+                                <span class="tag featured-tag">Featured</span>
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <span class="portfolio-category">Cloud Infrastructure</span>
+                            <h3 class="portfolio-title">CloudMatrix Migration</h3>
+                            <p class="portfolio-desc">Complete cloud migration for a Fortune 500 company — zero downtime, 60% cost reduction, 10x performance boost.</p>
+                            <div class="portfolio-meta">
+                                <span><i class="fas fa-server"></i> 1000+ Servers</span>
+                                <span><i class="fas fa-chart-line"></i> 10x Faster</span>
+                            </div>
+                        </div>
+                        <div class="portfolio-hover-overlay">
+                            <div class="portfolio-hover-content">
+                                <h4>CloudMatrix Migration</h4>
+                                <p>Fortune 500 cloud transformation</p>
+                                <div class="portfolio-tech-stack">
+                                    <span>AWS</span><span>Kubernetes</span><span>Terraform</span><span>Ansible</span>
+                                </div>
+                                <a href="#contact" class="btn btn-primary btn-sm">View Case Study</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="portfolio-card" data-category="database">
+                    <div class="portfolio-card-inner">
+                        <div class="portfolio-visual">
+                            <div class="portfolio-icon-bg">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="portfolio-tags-top">
+                                <span class="tag">PostgreSQL</span>
+                                <span class="tag">Redis</span>
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <span class="portfolio-category">Database Architecture</span>
+                            <h3 class="portfolio-title">DataVault Enterprise</h3>
+                            <p class="portfolio-desc">Redesigned database architecture for a fintech platform — 99.9% query optimization, handling 10M+ records daily.</p>
+                            <div class="portfolio-meta">
+                                <span><i class="fas fa-tachometer-alt"></i> 99.9% Faster</span>
+                                <span><i class="fas fa-database"></i> 10M+ Records</span>
+                            </div>
+                        </div>
+                        <div class="portfolio-hover-overlay">
+                            <div class="portfolio-hover-content">
+                                <h4>DataVault Enterprise</h4>
+                                <p>Fintech database transformation</p>
+                                <div class="portfolio-tech-stack">
+                                    <span>PostgreSQL</span><span>Redis</span><span>ClickHouse</span>
+                                </div>
+                                <a href="#contact" class="btn btn-primary btn-sm">View Case Study</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="portfolio-card" data-category="automation">
+                    <div class="portfolio-card-inner">
+                        <div class="portfolio-visual">
+                            <div class="portfolio-icon-bg">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="portfolio-tags-top">
+                                <span class="tag">Python</span>
+                                <span class="tag">AI/ML</span>
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <span class="portfolio-category">Automation</span>
+                            <h3 class="portfolio-title">AutoFlow Intelligence</h3>
+                            <p class="portfolio-desc">AI-powered business process automation that replaced 12 manual workflows — saving 2000+ man-hours monthly.</p>
+                            <div class="portfolio-meta">
+                                <span><i class="fas fa-clock"></i> 2000h Saved/mo</span>
+                                <span><i class="fas fa-robot"></i> 12 Workflows</span>
+                            </div>
+                        </div>
+                        <div class="portfolio-hover-overlay">
+                            <div class="portfolio-hover-content">
+                                <h4>AutoFlow Intelligence</h4>
+                                <p>AI-driven process automation</p>
+                                <div class="portfolio-tech-stack">
+                                    <span>Python</span><span>TensorFlow</span><span>Apache Airflow</span>
+                                </div>
+                                <a href="#contact" class="btn btn-primary btn-sm">View Case Study</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="portfolio-card" data-category="web">
+                    <div class="portfolio-card-inner">
+                        <div class="portfolio-visual">
+                            <div class="portfolio-icon-bg">
+                                <i class="fas fa-chart-area"></i>
+                            </div>
+                            <div class="portfolio-tags-top">
+                                <span class="tag">Vue.js</span>
+                                <span class="tag">GraphQL</span>
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <span class="portfolio-category">Web Development</span>
+                            <h3 class="portfolio-title">Analytix Dashboard</h3>
+                            <p class="portfolio-desc">Real-time analytics dashboard with 50+ data visualization modules, processing millions of events per second.</p>
+                            <div class="portfolio-meta">
+                                <span><i class="fas fa-chart-bar"></i> 50+ Modules</span>
+                                <span><i class="fas fa-bolt"></i> Real-time</span>
+                            </div>
+                        </div>
+                        <div class="portfolio-hover-overlay">
+                            <div class="portfolio-hover-content">
+                                <h4>Analytix Dashboard</h4>
+                                <p>Real-time data intelligence platform</p>
+                                <div class="portfolio-tech-stack">
+                                    <span>Vue.js</span><span>GraphQL</span><span>TimescaleDB</span>
+                                </div>
+                                <a href="#contact" class="btn btn-primary btn-sm">View Case Study</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="portfolio-card" data-category="cloud">
+                    <div class="portfolio-card-inner">
+                        <div class="portfolio-visual">
+                            <div class="portfolio-icon-bg">
+                                <i class="fas fa-network-wired"></i>
+                            </div>
+                            <div class="portfolio-tags-top">
+                                <span class="tag">Docker</span>
+                                <span class="tag">GitOps</span>
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <span class="portfolio-category">DevOps</span>
+                            <h3 class="portfolio-title">DevStream CI/CD</h3>
+                            <p class="portfolio-desc">End-to-end DevOps pipeline implementation reducing deployment time from 2 hours to under 3 minutes.</p>
+                            <div class="portfolio-meta">
+                                <span><i class="fas fa-rocket"></i> 40x Faster Deploy</span>
+                                <span><i class="fas fa-code-branch"></i> GitOps</span>
+                            </div>
+                        </div>
+                        <div class="portfolio-hover-overlay">
+                            <div class="portfolio-hover-content">
+                                <h4>DevStream CI/CD</h4>
+                                <p>Complete DevOps transformation</p>
+                                <div class="portfolio-tech-stack">
+                                    <span>Docker</span><span>GitHub Actions</span><span>ArgoCD</span>
+                                </div>
+                                <a href="#contact" class="btn btn-primary btn-sm">View Case Study</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section class="testimonials section" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Client Voices</span>
+                <h2 class="section-title">Trusted by <span class="gradient-text">Leaders</span></h2>
+                <p class="section-subtitle">What our clients say about working with Omnizentrix</p>
+            </div>
+
+            <div class="testimonials-slider">
+                <div class="testimonials-track" id="testimonialsTrack">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-inner">
+                            <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                            <div class="stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-text">"Omnizentrix transformed our entire digital infrastructure. What used to take us weeks now happens in minutes. Their database optimization alone cut our cloud costs by 40%. Absolutely world-class team."</p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <div class="avatar-placeholder">AM</div>
+                                </div>
+                                <div class="author-info">
+                                    <strong>Alex Morgan</strong>
+                                    <span>CTO, TechVault Inc.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-inner">
+                            <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                            <div class="stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-text">"The cloud migration project was flawless. Zero downtime during a complete infrastructure overhaul. Omnizentrix's team is incredibly professional, proactive, and genuinely cares about outcomes."</p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <div class="avatar-placeholder">SC</div>
+                                </div>
+                                <div class="author-info">
+                                    <strong>Sarah Chen</strong>
+                                    <span>VP Engineering, CloudAxis</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-inner">
+                            <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                            <div class="stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-text">"We went from 5 minute page loads to under 2 seconds. Our conversion rate increased by 180%. The automation pipelines they built are now the backbone of our entire operation. Incredible work."</p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <div class="avatar-placeholder">RK</div>
+                                </div>
+                                <div class="author-info">
+                                    <strong>Raj Kapoor</strong>
+                                    <span>CEO, DataStream Pro</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 4 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-inner">
+                            <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                            <div class="stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-text">"Their security implementation is unmatched. We passed our SOC 2 audit on the first try thanks to Omnizentrix. They don't just build software — they build trust. An absolute pleasure to work with."</p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <div class="avatar-placeholder">EP</div>
+                                </div>
+                                <div class="author-info">
+                                    <strong>Elena Park</strong>
+                                    <span>CISO, FinSecure Group</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 5 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-inner">
+                            <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                            <div class="stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-text">"We scaled from 100 to 2 million users in 6 months without a single incident. Omnizentrix's infrastructure planning and DevOps expertise were critical to our growth. They are true digital architects."</p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <div class="avatar-placeholder">MT</div>
+                                </div>
+                                <div class="author-info">
+                                    <strong>Marco Torres</strong>
+                                    <span>Founder, ScaleUp Labs</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonials-controls">
+                    <button class="testimonial-btn prev" id="testimPrev" aria-label="Previous">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="testimonials-dots" id="testimonialsDots"></div>
+                    <button class="testimonial-btn next" id="testimNext" aria-label="Next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT SECTION ========== -->
+    <section class="contact section" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <span class="section-tag">Get In Touch</span>
+                    <h2 class="section-title">Let's Build <span class="gradient-text">Together</span></h2>
+                    <p class="contact-desc">Ready to engineer your digital future? Tell us about your project and we'll craft a solution that exceeds your expectations.</p>
+
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="contact-text">
+                                <span class="contact-label">Email Us</span>
+                                <a href="mailto:hello@omnizentrix.com">hello@omnizentrix.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div class="contact-text">
+                                <span class="contact-label">Call Us</span>
+                                <a href="tel:+15550000000">+1 (555) 000-0000</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="contact-text">
+                                <span class="contact-label">Location</span>
+                                <span>San Francisco, CA — Remote First</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <input type="text" id="firstName" name="firstName" placeholder=" " required>
+                                <label for="firstName">First Name</label>
+                                <div class="input-line"></div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="lastName" name="lastName" placeholder=" " required>
+                                <label for="lastName">Last Name</label>
+                                <div class="input-line"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder=" " required>
+                            <label for="email">Email Address</label>
+                            <div class="input-line"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="company" name="company" placeholder=" ">
+                            <label for="company">Company (Optional)</label>
+                            <div class="input-line"></div>
+                        </div>
+                        <div class="form-group select-group">
+                            <select id="service" name="service" required>
+                                <option value="" disabled selected></option>
+                                <option value="web">Website Development</option>
+                                <option value="database">Database Architecture</option>
+                                <option value="automation">System Automation</option>
+                                <option value="cloud">Cloud & DevOps</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <label for="service">Service Needed</label>
+                            <div class="input-line"></div>
+                            <i class="fas fa-chevron-down select-arrow"></i>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="4" placeholder=" " required></textarea>
+                            <label for="message">Tell us about your project</label>
+                            <div class="input-line"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-glow btn-full">
+                            <span class="btn-text">Send Message</span>
+                            <span class="btn-loading" style="display:none"><i class="fas fa-circle-notch fa-spin"></i></span>
+                            <i class="fas fa-paper-plane btn-icon"></i>
+                        </button>
+                        <div class="form-success" id="formSuccess">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Message sent! We'll be in touch within 24 hours.</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="footer-grid-overlay"></div>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="images/OZ-LOGO-white.png" alt="Omnizentrix" class="footer-logo">
+                    <p class="footer-tagline">Engineering Digital Intelligence</p>
+                    <p class="footer-desc">We build, manage, and scale your digital ecosystem with precision and intelligence.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Services</h4>
+                        <ul>
+                            <li><a href="#services">Website Development</a></li>
+                            <li><a href="#services">Database Architecture</a></li>
+                            <li><a href="#services">System Automation</a></li>
+                            <li><a href="#services">Cloud & DevOps</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#portfolio">Portfolio</a></li>
+                            <li><a href="#testimonials">Testimonials</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Technology</h4>
+                        <ul>
+                            <li><a href="#">React & Vue.js</a></li>
+                            <li><a href="#">AWS & Azure</a></li>
+                            <li><a href="#">Kubernetes</a></li>
+                            <li><a href="#">PostgreSQL</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Omnizentrix. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -61,55 +61,57 @@
 
     <!-- ========== HERO SECTION ========== -->
     <section class="hero" id="home">
+        <!-- Background Assets -->
+        <div class="grid-overlay"></div>
+        <div class="orb orb-3"></div>
+
+        <!-- Spline 3D Canvas — Seamless full-screen background -->
+        <div id="splineContainer" class="spline-container"></div>
  
-    <!-- Spline 3D Canvas — sits behind everything -->
-    <div id="splineContainer" class="spline-container"></div>
- 
-    <!-- Existing overlays kept -->
-    <div class="grid-overlay"></div>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
- 
-    <!-- Hero content — unchanged -->
-    <div class="hero-content">
-        <div class="hero-badge">
-            <span class="badge-dot"></span>
-            <span>Next-Gen Digital Infrastructure</span>
-        </div>
-        <h1 class="hero-title">
-            <span class="title-line" data-delay="0">Powerful</span>
-            <span class="title-line gradient-text" data-delay="100">Performance</span>
-            <span class="title-line" data-delay="200">Perfection</span>
-        </h1>
-        <p class="hero-subtitle">Web, Database &amp; System Solutions — Built for Scale</p>
-        <p class="hero-subtext">We build, manage, and scale your digital ecosystem with precision, speed, and intelligent automation.</p>
-        <div class="hero-cta">
-            <a href="#contact" class="btn btn-primary btn-glow">
-                <span>Get Started</span>
-                <i class="fas fa-arrow-right"></i>
-            </a>
-            <a href="#services" class="btn btn-secondary btn-outline">
-                <span>View Services</span>
-                <i class="fas fa-chevron-down"></i>
-            </a>
-        </div>
-        <div class="hero-stats">
-            <div class="stat-item">
-                <span class="stat-number" data-target="150">0</span><span class="stat-suffix">+</span>
-                <span class="stat-label">Projects Delivered</span>
+    <!-- Hero Layout Wrapper -->
+    <div class="container hero-layout-wrapper">
+        <!-- Hero content — now on the left -->
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span>Next-Gen Digital Infrastructure</span>
             </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-                <span class="stat-number" data-target="98">0</span><span class="stat-suffix">%</span>
-                <span class="stat-label">Client Satisfaction</span>
+            <h1 class="hero-title">
+                <span class="title-line" data-delay="0">Powerful</span>
+                <span class="title-line gradient-text" data-delay="100">Performance</span>
+                <span class="title-line" data-delay="200">Perfection</span>
+            </h1>
+            <p class="hero-subtitle">Web, Database &amp; System Solutions — Built for Scale</p>
+            <p class="hero-subtext">We build, manage, and scale your digital ecosystem with precision, speed, and intelligent automation.</p>
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary btn-glow">
+                    <span>Get Started</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#services" class="btn btn-secondary btn-outline">
+                    <span>View Services</span>
+                    <i class="fas fa-chevron-down"></i>
+                </a>
             </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-                <span class="stat-number" data-target="40">0</span><span class="stat-suffix">+</span>
-                <span class="stat-label">Enterprise Clients</span>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="150">0</span><span class="stat-suffix">+</span>
+                    <span class="stat-label">Projects Delivered</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="98">0</span><span class="stat-suffix">%</span>
+                    <span class="stat-label">Client Satisfaction</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="40">0</span><span class="stat-suffix">+</span>
+                    <span class="stat-label">Enterprise Clients</span>
+                </div>
             </div>
         </div>
+        <!-- Spline 3D Canvas — Now a seamless background -->
+        <div id="splineContainer" class="spline-container"></div>
     </div>
  
     <div class="hero-scroll-indicator">
@@ -120,74 +122,19 @@
 </section>
  
 <!-- ========== SPLINE SCRIPT ========== -->
-<!-- Load Three.js and Spline loader via importmap -->
-<script type="importmap">
-{
-    "imports": {
-        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-        "three/examples/jsm/controls/OrbitControls.js": "https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js",
-        "@splinetool/loader": "https://unpkg.com/@splinetool/loader@1.9.28/build/SplineLoader.js"
-    }
-}
-</script>
- 
+<!-- Load @splinetool/runtime for modern .splinecode integration -->
 <script type="module">
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import SplineLoader from '@splinetool/loader';
- 
-const container = document.getElementById('splineContainer');
- 
-// Camera
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 70, 100000);
-camera.position.set(189.48, 6.01, 72.34);
-camera.quaternion.setFromEuler(new THREE.Euler(-0.17, 1.12, 0.15));
- 
-// Scene
-const scene = new THREE.Scene();
- 
-// Load Spline scene
-const loader = new SplineLoader();
-loader.load(
-    'https://prod.spline.design/F-tE6pxaf70GSbUy/scene.splinecode',
-    (splineScene) => {
-        scene.add(splineScene);
-    }
-);
- 
-// Renderer — transparent background so our black hero shows through
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFShadowMap;
-renderer.setClearAlpha(0); // transparent — lets CSS background show
- 
-container.appendChild(renderer.domElement);
- 
-// Orbit controls — limited so user can't break the view
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.dampingFactor = 0.125;
-controls.enableZoom = false;       // disable zoom to keep layout
-controls.enablePan = false;        // disable pan
-controls.autoRotate = false;
- 
-// Resize handler
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
- 
-// Animate
-function animate() {
-    requestAnimationFrame(animate);
-    controls.update();
-    renderer.render(scene, camera);
-}
-animate();
+    import { Application } from 'https://unpkg.com/@splinetool/runtime/build/runtime.js';
+    
+    const canvas = document.createElement('canvas');
+    canvas.id = 'splineCanvas';
+    document.getElementById('splineContainer').appendChild(canvas);
+
+    const app = new Application(canvas);
+    app.load('scene.splinecode');
 </script>
+ 
+<!-- Manual script removed in favor of modern runtime loading -->
 
     <!-- ========== SERVICES SECTION ========== -->
     <section class="services section" id="services">
@@ -524,189 +471,18 @@ animate();
 </script>
 
     <!-- ========== FEATURES SECTION ========== -->
-    <section class="features section" id="features">
+    <!-- ========== FEATURES SECTION (REACT-POWERED) ========== -->
+    <section class="features section" id="features" style="padding: 100px 0; background: #000; overflow: hidden; min-height: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;">
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Why Choose Us</span>
                 <h2 class="section-title">Built on <span class="gradient-text">Excellence</span></h2>
                 <p class="section-subtitle">Every system we build is engineered to the highest standards</p>
             </div>
-
-            <div class="features-showcase">
-                <div class="features-tabs">
-                    <button class="feature-tab active" data-tab="fast">
-                        <i class="fas fa-bolt"></i>
-                        <span>Fast</span>
-                    </button>
-                    <button class="feature-tab" data-tab="secure">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>Secure</span>
-                    </button>
-                    <button class="feature-tab" data-tab="scalable">
-                        <i class="fas fa-expand-arrows-alt"></i>
-                        <span>Scalable</span>
-                    </button>
-                    <button class="feature-tab" data-tab="intelligent">
-                        <i class="fas fa-brain"></i>
-                        <span>Intelligent</span>
-                    </button>
-                </div>
-
-                <div class="features-content">
-                    <div class="feature-panel active" id="tab-fast">
-                        <div class="feature-panel-inner">
-                            <div class="feature-panel-text">
-                                <h3>Blazing Fast Performance</h3>
-                                <p>We obsess over every millisecond. Our architectures are designed for sub-100ms response times at scale, using edge computing, intelligent caching layers, and optimized data pipelines.</p>
-                                <ul class="feature-list">
-                                    <li><i class="fas fa-check-circle"></i> Sub-100ms API Response Times</li>
-                                    <li><i class="fas fa-check-circle"></i> CDN-Powered Global Delivery</li>
-                                    <li><i class="fas fa-check-circle"></i> Optimized Database Indexing</li>
-                                    <li><i class="fas fa-check-circle"></i> Edge Caching & Compression</li>
-                                </ul>
-                                <div class="feature-metric">
-                                    <div class="metric-bar-wrapper">
-                                        <div class="metric-label">Load Time</div>
-                                        <div class="metric-bar"><div class="metric-fill" style="--width: 95%"></div></div>
-                                        <div class="metric-value">0.3s avg</div>
-                                    </div>
-                                    <div class="metric-bar-wrapper">
-                                        <div class="metric-label">Uptime SLA</div>
-                                        <div class="metric-bar"><div class="metric-fill" style="--width: 99%"></div></div>
-                                        <div class="metric-value">99.99%</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="feature-panel-visual">
-                                <div class="feature-visual-card">
-                                    <div class="vis-header">
-                                        <div class="vis-dots"><span></span><span></span><span></span></div>
-                                        <span class="vis-title">Performance Dashboard</span>
-                                    </div>
-                                    <div class="vis-bars">
-                                        <div class="vis-bar" style="--h:40%;--delay:0s"><span>Q1</span></div>
-                                        <div class="vis-bar" style="--h:65%;--delay:0.1s"><span>Q2</span></div>
-                                        <div class="vis-bar" style="--h:55%;--delay:0.2s"><span>Q3</span></div>
-                                        <div class="vis-bar" style="--h:80%;--delay:0.3s"><span>Q4</span></div>
-                                        <div class="vis-bar highlight" style="--h:95%;--delay:0.4s"><span>Now</span></div>
-                                    </div>
-                                    <div class="vis-metric">
-                                        <span class="vis-metric-value">99.9%</span>
-                                        <span class="vis-metric-label">Uptime Achieved</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="feature-panel" id="tab-secure">
-                        <div class="feature-panel-inner">
-                            <div class="feature-panel-text">
-                                <h3>Military-Grade Security</h3>
-                                <p>Security isn't an afterthought — it's woven into every layer of our architecture. From zero-trust networking to end-to-end encryption, your data is fortress-protected.</p>
-                                <ul class="feature-list">
-                                    <li><i class="fas fa-check-circle"></i> Zero-Trust Architecture</li>
-                                    <li><i class="fas fa-check-circle"></i> End-to-End Encryption (AES-256)</li>
-                                    <li><i class="fas fa-check-circle"></i> SOC 2 & ISO 27001 Compliance</li>
-                                    <li><i class="fas fa-check-circle"></i> Real-Time Threat Detection</li>
-                                </ul>
-                            </div>
-                            <div class="feature-panel-visual">
-                                <div class="feature-visual-card">
-                                    <div class="vis-header">
-                                        <div class="vis-dots"><span></span><span></span><span></span></div>
-                                        <span class="vis-title">Security Monitor</span>
-                                    </div>
-                                    <div class="security-grid">
-                                        <div class="sec-item active"><i class="fas fa-shield-alt"></i><span>Firewall</span></div>
-                                        <div class="sec-item active"><i class="fas fa-lock"></i><span>Encryption</span></div>
-                                        <div class="sec-item active"><i class="fas fa-user-shield"></i><span>Auth</span></div>
-                                        <div class="sec-item active"><i class="fas fa-eye"></i><span>Monitor</span></div>
-                                        <div class="sec-item"><i class="fas fa-ban"></i><span>DDoS</span></div>
-                                        <div class="sec-item"><i class="fas fa-virus-slash"></i><span>Antivirus</span></div>
-                                    </div>
-                                    <div class="vis-metric">
-                                        <span class="vis-metric-value green">SECURE</span>
-                                        <span class="vis-metric-label">System Status</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="feature-panel" id="tab-scalable">
-                        <div class="feature-panel-inner">
-                            <div class="feature-panel-text">
-                                <h3>Infinitely Scalable</h3>
-                                <p>Our microservices-based architectures are designed to scale horizontally and vertically on demand. Handle millions of users without breaking a sweat.</p>
-                                <ul class="feature-list">
-                                    <li><i class="fas fa-check-circle"></i> Auto-Scaling Infrastructure</li>
-                                    <li><i class="fas fa-check-circle"></i> Microservices Architecture</li>
-                                    <li><i class="fas fa-check-circle"></i> Global Multi-Region Deploy</li>
-                                    <li><i class="fas fa-check-circle"></i> Load Balancing & Failover</li>
-                                </ul>
-                            </div>
-                            <div class="feature-panel-visual">
-                                <div class="feature-visual-card">
-                                    <div class="vis-header">
-                                        <div class="vis-dots"><span></span><span></span><span></span></div>
-                                        <span class="vis-title">Scale Topology</span>
-                                    </div>
-                                    <div class="topology-grid">
-                                        <div class="topo-node root"><i class="fas fa-server"></i></div>
-                                        <div class="topo-branch">
-                                            <div class="topo-node"><i class="fas fa-cloud"></i></div>
-                                            <div class="topo-node"><i class="fas fa-cloud"></i></div>
-                                            <div class="topo-node"><i class="fas fa-cloud"></i></div>
-                                        </div>
-                                    </div>
-                                    <div class="vis-metric">
-                                        <span class="vis-metric-value">∞</span>
-                                        <span class="vis-metric-label">Scale Capacity</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="feature-panel" id="tab-intelligent">
-                        <div class="feature-panel-inner">
-                            <div class="feature-panel-text">
-                                <h3>AI-Powered Intelligence</h3>
-                                <p>We embed machine learning and intelligent automation throughout the stack — predictive analytics, anomaly detection, and self-healing systems that think ahead.</p>
-                                <ul class="feature-list">
-                                    <li><i class="fas fa-check-circle"></i> Predictive Analytics</li>
-                                    <li><i class="fas fa-check-circle"></i> ML-Based Anomaly Detection</li>
-                                    <li><i class="fas fa-check-circle"></i> Self-Healing Systems</li>
-                                    <li><i class="fas fa-check-circle"></i> AI-Driven Optimization</li>
-                                </ul>
-                            </div>
-                            <div class="feature-panel-visual">
-                                <div class="feature-visual-card">
-                                    <div class="vis-header">
-                                        <div class="vis-dots"><span></span><span></span><span></span></div>
-                                        <span class="vis-title">AI Engine</span>
-                                    </div>
-                                    <div class="ai-visual">
-                                        <div class="ai-brain">
-                                            <i class="fas fa-brain"></i>
-                                        </div>
-                                        <div class="ai-pulse ring-pulse"></div>
-                                        <div class="ai-pulse ring-pulse delay-1"></div>
-                                        <div class="ai-pulse ring-pulse delay-2"></div>
-                                    </div>
-                                    <div class="vis-metric">
-                                        <span class="vis-metric-value">AI</span>
-                                        <span class="vis-metric-label">Autonomous Operations</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
+        <div id="radial-orbital-timeline-root" style="width: 100%; height: 800px; display: flex; align-items: center; justify-content: center;"></div>
     </section>
+    <script type="module" src="/src/main.tsx"></script>
 
     <!-- ========== PORTFOLIO SECTION ========== -->
     <section class="portfolio section" id="portfolio">

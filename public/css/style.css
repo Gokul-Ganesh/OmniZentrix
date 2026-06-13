@@ -380,15 +380,14 @@ img { max-width: 100%; display: block; background: transparent; }
    ============================================================ */
 
 /* Hide old about elements */
-.about .container,
-.about-grid, .about-visual, .about-image-wrapper,
+.about-image-wrapper,
 .about-tech-grid, .about-center-logo,
-.about-connections, .about-logo-ring {
+.about-connections {
     display: none !important;
 }
 
 .about {
-    padding: 0 !important;
+    padding: 120px 0 !important;
     overflow: visible !important;
     background: var(--black);
     position: relative;
@@ -397,18 +396,15 @@ img { max-width: 100%; display: block; background: transparent; }
 /* Tall wrapper = scroll budget for the animation */
 .about-scroll-track {
     position: relative;
-    /* Height set by JS: 5 × 100vh */
+    height: auto !important;
 }
 
 /* Sticky panel locks in viewport during scroll */
 .about-sticky-panel {
-    position: sticky;
-    top: 0;
-    height: 100vh;
+    position: relative;
+    height: auto;
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    overflow: hidden;
+    display: block;
     background: var(--black);
 }
 
@@ -862,4 +858,102 @@ img { max-width: 100%; display: block; background: transparent; }
 
 .animate-ping {
     animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+/* ========== ABOUT SECTION — STATIC LOGO VERSION ========== */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.about-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-logo-display {
+    position: relative;
+    width: 380px;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-animated-logo {
+    width: 260px;
+    height: 260px;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+}
+
+.about-logo-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    animation: ringPulse 3s ease-in-out infinite;
+}
+
+.about-logo-ring.ring-1 { width: 300px; height: 300px; animation-delay: 0s; }
+.about-logo-ring.ring-2 { width: 350px; height: 350px; animation-delay: 0.6s; }
+.about-logo-ring.ring-3 { width: 400px; height: 400px; animation-delay: 1.2s; }
+
+@keyframes ringPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.03); }
+}
+
+@media (max-width: 991px) {
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-visual { order: -1; }
+    .about-logo-display { width: 280px; height: 280px; }
+    .about-animated-logo { width: 180px; height: 180px; }
+    .about-logo-ring.ring-1 { width: 220px; height: 220px; }
+    .about-logo-ring.ring-2 { width: 260px; height: 260px; }
+    .about-logo-ring.ring-3 { width: 300px; height: 300px; }
+}
+
+/* ========== ABOUT SECTION OVERRIDE — STATIC LOGO ========== */
+.about {
+    padding: 120px 0 !important;
+    overflow: visible !important;
+}
+.about .about-grid {
+    display: grid !important;
+    grid-template-columns: 45% 55% !important;
+    gap: 60px !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    align-items: center !important;
+}
+.about .about-visual {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.about .about-logo-display {
+    position: relative !important;
+    width: 680px !important;
+    height: 680px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.about .about-animated-logo {
+    width: 550px !important;
+    height: 550px !important;
+    object-fit: contain !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+.about-scroll-track {
+    height: auto !important;
+}
+.about-sticky-panel {
+    position: relative !important;
+    height: auto !important;
+    display: block !important;
 }

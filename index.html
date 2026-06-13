@@ -250,31 +250,21 @@
     </section>
 
     <!-- ========== ABOUT SECTION ========== -->
-    <!-- ========== ABOUT SECTION — SCROLL-JACKED VIDEO ANIMATION ========== -->
-<!--
-    HOW TO USE:
-    1. Replace your entire <section class="about section" id="about">...</section> with this
-    2. Add about_scroll_final.css to the bottom of your style.css
-    3. Make sure your frames are in: images/video_frames/frame_00000.png → frame_00191.png
--->
-
-<section class="about" id="about">
-
-    <!-- SCROLL LOCK WRAPPER: This is tall — it's the "scroll budget" for the animation -->
-    <div class="about-scroll-track" id="aboutScrollTrack">
-
-        <!-- STICKY PANEL: locks in viewport while user scrolls through the track -->
-        <div class="about-sticky-panel" id="aboutStickyPanel">
-
-            <!-- LEFT: Canvas playing frames -->
-            <div class="about-canvas-side">
-                <canvas id="ozCanvas" class="oz-canvas"></canvas>
-                <!-- Gradient fade on right edge to blend into content -->
-                <div class="oz-canvas-fade"></div>
-            </div>
-
-            <!-- RIGHT: Content -->
-            <div class="about-text-side">
+    <section class="about section" id="about" style="padding: 120px 0;">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-visual">
+                    <div class="about-logo-display">
+                        <img
+                            src="images/OZ-LOGO-about-white.png"
+                            alt="Omnizentrix"
+                            class="about-animated-logo"
+                        >
+                        <div class="about-logo-ring ring-1"></div>
+                        <div class="about-logo-ring ring-2"></div>
+                        <div class="about-logo-ring ring-3"></div>
+                    </div>
+                </div>
                 <div class="about-content">
                     <span class="section-tag">Who We Are</span>
                     <h2 class="section-title">The Future of <span class="gradient-text">Tech</span> is Here</h2>
@@ -305,170 +295,9 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Scroll progress indicator -->
-                <div class="oz-progress-bar">
-                    <div class="oz-progress-fill" id="ozProgressFill"></div>
-                </div>
-                <p class="oz-scroll-hint" id="ozScrollHint">
-                    <span class="oz-scroll-arrow">↓</span> Scroll to explore
-                </p>
             </div>
-
         </div>
-    </div>
-
-</section>
-
-<script>
-(function() {
-    'use strict';
-
-    /* ---- CONFIG ---- */
-    const TOTAL_FRAMES = 192;
-    const FRAME_PATH   = 'images/video_frames/frame_{N}.png';
-    // How many extra px of scroll after animation ends before page moves on
-    // (effectively = scroll distance for the whole animation)
-    const SCROLL_MULTIPLIER = 5; // × viewport height
-
-    /* ---- ELEMENTS ---- */
-    const track   = document.getElementById('aboutScrollTrack');
-    const panel   = document.getElementById('aboutStickyPanel');
-    const canvas  = document.getElementById('ozCanvas');
-    const ctx     = canvas.getContext('2d');
-    const fill    = document.getElementById('ozProgressFill');
-    const hint    = document.getElementById('ozScrollHint');
-
-    /* ---- FRAME CACHE ---- */
-    const cache = new Array(TOTAL_FRAMES).fill(null);
-    let   loadedCount = 0;
-    let   currentFrame = 0;
-
-    function frameSrc(n) {
-        // zero-padded 5 digits: frame_00000.png
-        return FRAME_PATH.replace('{N}', String(n).padStart(5, '0'));
-    }
-
-    function loadFrame(n) {
-        return new Promise(resolve => {
-            if (cache[n]) { resolve(cache[n]); return; }
-            const img = new Image();
-            img.onload = () => { cache[n] = img; loadedCount++; resolve(img); };
-            img.onerror = () => resolve(null);
-            img.src = frameSrc(n);
-        });
-    }
-
-    /* ---- CANVAS DRAW ---- */
-    function resizeCanvas() {
-        const side = canvas.parentElement;
-        canvas.width  = side.offsetWidth;
-        canvas.height = side.offsetHeight;
-        renderFrame(currentFrame);
-    }
-
-    function renderFrame(n) {
-        const img = cache[n];
-        if (!img) return;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        // Contain-fit: entire image fits, nothing clipped
-        const s  = Math.min(canvas.width / img.width, canvas.height / img.height);
-        const w  = img.width  * s;
-        const h  = img.height * s;
-        const ox = (canvas.width  - w) / 2;
-        const oy = (canvas.height - h) / 2;
-        ctx.drawImage(img, ox, oy, w, h);
-    }
-
-    /* ---- SCROLL LOCK LOGIC ---- */
-    // The track height determines scroll distance.
-    // We set it dynamically = SCROLL_MULTIPLIER × vh.
-    function setTrackHeight() {
-        track.style.height = (window.innerHeight * SCROLL_MULTIPLIER) + 'px';
-    }
-
-    let ticking = false;
-
-    function onScroll() {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(() => {
-            updateAnimation();
-            ticking = false;
-        });
-    }
-
-    function updateAnimation() {
-        const rect       = track.getBoundingClientRect();
-        const trackH     = track.offsetHeight;
-        const viewH      = window.innerHeight;
-        // scrolled = how far we've scrolled INTO the track
-        const scrolled   = -rect.top;
-        const scrollable = trackH - viewH;
-
-        if (scrolled < 0 || scrolled > scrollable) {
-            // Outside the sticky zone — nothing to do
-            return;
-        }
-
-        // Progress 0→1
-        const progress = Math.max(0, Math.min(1, scrolled / scrollable));
-
-        // Frame index
-        const frameIdx = Math.min(
-            TOTAL_FRAMES - 1,
-            Math.floor(progress * TOTAL_FRAMES)
-        );
-
-        // Update progress bar
-        if (fill) fill.style.width = (progress * 100) + '%';
-
-        // Fade out hint after first scroll
-        if (hint && progress > 0.02) {
-            hint.style.opacity = Math.max(0, 1 - progress * 8);
-        }
-
-        if (frameIdx !== currentFrame) {
-            currentFrame = frameIdx;
-            if (cache[frameIdx]) {
-                renderFrame(frameIdx);
-            } else {
-                loadFrame(frameIdx).then(() => renderFrame(frameIdx));
-            }
-        }
-    }
-
-    /* ---- PRELOAD STRATEGY ---- */
-    // 1. Load first frame immediately so canvas isn't blank
-    // 2. Then load frames in order
-    async function init() {
-        setTrackHeight();
-        resizeCanvas();
-
-        // Load frame 0 first
-        await loadFrame(0);
-        renderFrame(0);
-
-        // Then load rest in background, prioritising first half
-        for (let i = 1; i < TOTAL_FRAMES; i++) {
-            loadFrame(i);
-            // Small yield every 10 frames so browser stays responsive
-            if (i % 10 === 0) await new Promise(r => setTimeout(r, 0));
-        }
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', () => {
-        setTrackHeight();
-        resizeCanvas();
-        updateAnimation();
-    });
-
-    // Run
-    init();
-
-})();
-</script>
+    </section>
 
     <!-- ========== FEATURES SECTION ========== -->
     <!-- ========== FEATURES SECTION (REACT-POWERED) ========== -->

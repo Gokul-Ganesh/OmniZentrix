@@ -957,3 +957,13 @@ img { max-width: 100%; display: block; background: transparent; }
     height: auto !important;
     display: block !important;
 }
+
+/* Fix gap after testimonials removal */
+.portfolio {
+    margin-bottom: 0 !important;
+    padding-bottom: 80px !important;
+}
+.contact {
+    margin-top: 0 !important;
+    padding-top: 80px !important;
+}

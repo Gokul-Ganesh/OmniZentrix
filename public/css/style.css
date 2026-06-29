@@ -967,3 +967,37 @@ img { max-width: 100%; display: block; background: transparent; }
     margin-top: 0 !important;
     padding-top: 80px !important;
 }
+
+/* Responsive max-width fix */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1280px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    width: 100% !important;
+}
+
+@media (min-width: 1600px) {
+    .container {
+        max-width: 1400px !important;
+    }
+}
+
+@media (min-width: 1920px) {
+    .container {
+        max-width: 1600px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+}
